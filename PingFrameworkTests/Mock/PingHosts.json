@@ -1,0 +1,37 @@
+[
+  {
+    "name": "eBay UK",
+    "url": "www.ebay.co.uk",
+    "icon": "https://pages.ebay.com/favicon.ico"
+  },
+  {
+    "name": "eBay USA",
+    "url": "www.ebay.com",
+    "icon": "https://pages.ebay.com/favicon.ico"
+  },
+  {
+    "name": "TradeMe",
+    "url": "www.trademe.co.nz",
+    "icon": "http://www.trademe.co.nz/images/new-brand-2016/common/tm-logo-2016-594x116-v1.png"
+  },
+  {
+    "name": "SamKnows",
+    "url": "samknows.com",
+    "icon": "https://www.samknows.com/static/img/whitebox.png"
+  },
+  {
+    "name": "Yahoo Japan",
+    "url": "yahoo.co.jp",
+    "icon": "https://s.yimg.jp/images/top/sp2/cmn/logo-170307.png"
+  },
+  {
+    "name": "Amazon",
+    "url": "www.amamazoon.com",
+    "icon": "https://www.samknows.com/static/img/rickastley.gif"
+  },
+  {
+    "name": "Amazon Australia",
+    "url": "www.amazon.com.au",
+    "icon": "https://images-na.ssl-images-amazon.com/images/G/35/kindle/merch/gw/2016/evergreen-deals_sidekick-c-au-600x969._CB278514656_.png"
+  }
+]

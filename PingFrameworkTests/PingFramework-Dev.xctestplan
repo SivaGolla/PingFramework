@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "09C3DC72-EFCA-40BE-8C45-65E40D74CCD0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:PingFramework.xcodeproj",
+        "identifier" : "A1B8F67D2CDE894E0016F3D3",
+        "name" : "PingFrameworkTests"
+      }
+    }
+  ],
+  "version" : 1
+}
