@@ -66,6 +66,28 @@ final class MockNetworkManagerTests: XCTestCase {
         
         XCTAssert(dataTask.resumeWasCalled)
     }
+    
+    func testExecuteAsyncRequestForURL() async throws {
+        
+        guard let url = URL(string: "https://mockurl") else {
+            fatalError("URL can't be empty")
+        }
+        
+        let request = Request(path: "https://mockurl",
+                              method: .get,
+                              contentType: "application/json",
+                              headerParams: nil,
+                              type: .ping,
+                              body: nil)
+        
+        let result: Hosts = try await networkManager.execute(request: request)
+        
+        if let sessionUrl = session.lastURL {
+            XCTAssert(sessionUrl == url)
+        }
+        
+        XCTAssertNotNil(result)
+    }
 
 }
 

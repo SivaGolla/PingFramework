@@ -90,5 +90,67 @@ public class PingManager: NSObject {
             }
         }
     }
-}
+    
+    /// Initiates an asynchronous ping operation for a specified URL, returning a list of `PingResult` objects.
+    ///
+    /// - Parameter urlString: The URL string of the host to be pinged.
+    /// - Returns: An array of `PingResult` containing the host names, average latencies, and images, if available.
+    /// - Note: This function fetches a list of hosts associated with the provided URL, performs latency measurements for
+    ///   each host, and retrieves associated images. The function uses asynchronous operations to ensure non-blocking
+    ///   performance and consolidates the results in an array, which is returned upon completion.
 
+    @MainActor
+    public func startAsyncPing(urlString: String) async throws -> [PingResult] {
+        
+        // Set the request URL for the PingService.
+        pingService.reqUrlPath = urlString
+        
+        // Fetch the list of hosts using the PingService.
+        let hosts: Hosts = try await pingService.fetch()
+        
+        var results: [PingResult] = []
+        
+        // Iterate over each host to ping and load image.
+        for host in hosts {
+            // Create a PingResult for the current host.
+            let result = PingResult(name: host.name, averageLatency: nil, image: nil)
+            
+            // Ping each host and measure latency.
+            if let averageLatency = try? await latencyAnalyzer.execute(host: host.url) {
+                result.averageLatency = averageLatency
+            }
+            
+            // Load the image for the host.
+            if let image = try? await imageLoader.loadImage(from: host.imageUrl) {
+                result.image = image
+            }
+            
+            // Add result to the final array
+            results.append(result)
+        }
+        
+        // Return the final results
+        return results
+    }
+    
+    /// Fetches data asynchronously from the specified URL and returns the result through a completion handler for Objective-C compatibility.
+    ///
+    /// - Parameters:
+    ///   - urlString: The URL string from which data should be fetched.
+    ///   - completion: A completion handler called with either the fetched data as `[PingResult]` or an `Error` if fetching fails.
+    ///
+    /// This method wraps an async function, making it accessible to Objective-C code by providing results through a completion handler.
+    /// It executes the async function in a Swift `Task` and passes the result to the Objective-C caller when complete.
+    /// 
+    @objc public func startPingWrapper(urlString: String, completion: @escaping ([PingResult]?, Error?) -> Void) {
+        Task {
+            do {
+                let results = try await startAsyncPing(urlString: urlString)
+                completion(results, nil)  // Pass results to completion handler
+            } catch {
+                print("Failed to fetch hosts: \(error)")
+                completion([], error)  // Return an empty array in case of error
+            }
+        }
+    }
+}

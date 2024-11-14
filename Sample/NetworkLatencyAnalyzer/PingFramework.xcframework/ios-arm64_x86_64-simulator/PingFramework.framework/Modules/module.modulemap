@@ -1,6 +1,0 @@
-framework module PingFramework {
-  umbrella header "PingFramework.h"
-  export *
-
-  module * { export * }
-}

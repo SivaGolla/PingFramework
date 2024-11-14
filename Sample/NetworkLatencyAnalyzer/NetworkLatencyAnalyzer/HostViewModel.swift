@@ -17,7 +17,7 @@ class HostViewModel {
     
     var averageLatency: String {
         if let latency = host?.averageLatency {
-            return "\(latency) ms"
+            return "Latency: \(String(format: "%.2f", latency)) ms"
         }
         
         return ""

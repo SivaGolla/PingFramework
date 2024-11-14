@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Combine
 @testable import PingFrameworkTest
 
 final class PingServiceTests: XCTestCase {
@@ -67,6 +68,94 @@ final class PingServiceTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func testFetchAsync() async throws {
+        // Arrange Mock Data
+        let bundle = Bundle(for: NetworkManager.self)
+        guard let mockResponseFileUrl = bundle.url(forResource: "PingHosts", withExtension: "json"),
+              let data = try? Data(contentsOf: mockResponseFileUrl) else {
+            XCTFail("Expected success, but got failure")
+            return
+        }
+        
+        let model = try JSONDecoder().decode(Hosts.self, from: data)
+                
+        // Act
+        
+        do {
+            let result: Hosts = try await pingService.fetch()
+            XCTAssertEqual(
+                result.map { $0.name },
+                model.map { $0.name }
+            )
+        } catch let error as NSError {
+            XCTFail("Expected success, but got failure")
+        }
+    }
+    
+    func testFetchDataPublisherSuccess() throws {
+        
+        let bundle = Bundle(for: NetworkManager.self)
+        guard let mockResponseFileUrl = bundle.url(forResource: "PingHosts", withExtension: "json"),
+              let data = try? Data(contentsOf: mockResponseFileUrl) else {
+            XCTFail("Expected success, but got failure")
+            return
+        }
+        session.mockData = data
+        session.mockResponse = HTTPURLResponse(url: URL(string: "https://api.example.com")!,
+                                               statusCode: 200,
+                                               httpVersion: nil,
+                                               headerFields: nil)
+        UserSession.activeSession = session
+        
+        let model = try JSONDecoder().decode(Hosts.self, from: data)
+                
+        let expectation = self.expectation(description: "Fetch data")
+        var cancellables: Set<AnyCancellable> = []
+
+        pingService.fetch()
+            .sink(receiveCompletion: { completion in
+                
+            }, receiveValue: { (result: Hosts) in
+                XCTAssertEqual(
+                    result.map { $0.name },
+                    model.map { $0.name }
+                )
+                expectation.fulfill()
+            })
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+        
+    func testFetchDataFailure() {
+        session.mockResponse = HTTPURLResponse(url: URL(string: "https://api.example.com")!,
+                                               statusCode: 401,
+                                               httpVersion: nil,
+                                               headerFields: nil)
+        session.mockError = .internalServerError
+        UserSession.activeSession = session
+        
+        let expectation = self.expectation(description: "Fetch data failure")
+        
+        var cancellables: Set<AnyCancellable> = []
+        
+        pingService.fetch()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Success")
+                case .failure(let error):
+                    XCTAssertEqual(error, NetworkError.badRequest)
+                    expectation.fulfill()
+                }
+            }, receiveValue: { (result: Hosts) in
+                
+            })
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 1, handler: nil)
     }
 }
 

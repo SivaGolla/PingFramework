@@ -20,4 +20,11 @@ protocol ServiceProviding {
     /// - This method handles making the request, processing the response, and decoding the data into the specified type.
     /// - Note: The `T` type parameter must conform to the `Decodable` protocol to allow JSON decoding.
     func fetch<T>(completion: @escaping (Result<T, NetworkError>) -> Void) where T: Decodable
+    
+    
+    /// Fetches data from the network and decodes it into a model of type `T`.
+    /// - Returns: A decoded model of type `T`
+    /// - This method handles making the request, processing the response, and decoding the data into the specified type.
+    /// - Note: The `T` type parameter must conform to the `Decodable` protocol to allow JSON decoding.
+    func fetch<T>() async throws -> T where T : Decodable
 }

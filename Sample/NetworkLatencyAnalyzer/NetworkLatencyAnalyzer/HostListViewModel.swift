@@ -33,4 +33,13 @@ class HostListViewModel: ObservableObject {
             }
         }
     }
+    
+    func loadAsyncLatencies() async throws {
+        
+        loading = true
+        // Using PingFramework to fetch latency for a host's address
+        
+        latencies = try await pinger.startAsyncPing(urlString: host.address)
+        loading = false
+    }
 }

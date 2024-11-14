@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A105403F2CE68145009343FC /* PingFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A105403E2CE68145009343FC /* PingFramework.xcframework */; };
 		A1B8F6F52CDEA3E60016F3D3 /* NetworkLatencyAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8F6F42CDEA3E60016F3D3 /* NetworkLatencyAnalyzerApp.swift */; };
 		A1B8F6F72CDEA3E60016F3D3 /* HostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8F6F62CDEA3E60016F3D3 /* HostListView.swift */; };
 		A1B8F6F92CDEA3E80016F3D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B8F6F82CDEA3E80016F3D3 /* Assets.xcassets */; };
@@ -15,7 +16,6 @@
 		A1B8F7102CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8F70F2CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITests.swift */; };
 		A1B8F7122CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8F7112CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITestsLaunchTests.swift */; };
 		A1B8F71F2CDEA40D0016F3D3 /* HostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B8F71E2CDEA40D0016F3D3 /* HostView.swift */; };
-		A1EB10FA2CE4176E008A01BC /* PingFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1EB10F92CE4176E008A01BC /* PingFramework.xcframework */; };
 		A1EB10FC2CE4ECC4008A01BC /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB10FB2CE4ECC4008A01BC /* Host.swift */; };
 		A1EB10FE2CE4ED31008A01BC /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB10FD2CE4ED31008A01BC /* HostViewModel.swift */; };
 		A1EB11002CE511A9008A01BC /* HostListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EB10FF2CE511A9008A01BC /* HostListViewModel.swift */; };
@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A105403E2CE68145009343FC /* PingFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = PingFramework.xcframework; path = ../../build/PingFramework.xcframework; sourceTree = "<group>"; };
 		A1B8F6F12CDEA3E60016F3D3 /* NetworkLatencyAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkLatencyAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B8F6F42CDEA3E60016F3D3 /* NetworkLatencyAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLatencyAnalyzerApp.swift; sourceTree = "<group>"; };
 		A1B8F6F62CDEA3E60016F3D3 /* HostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostListView.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		A1B8F70F2CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLatencyAnalyzerUITests.swift; sourceTree = "<group>"; };
 		A1B8F7112CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLatencyAnalyzerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A1B8F71E2CDEA40D0016F3D3 /* HostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostView.swift; sourceTree = "<group>"; };
-		A1EB10F92CE4176E008A01BC /* PingFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PingFramework.xcframework; sourceTree = "<group>"; };
 		A1EB10FB2CE4ECC4008A01BC /* Host.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		A1EB10FD2CE4ED31008A01BC /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
 		A1EB10FF2CE511A9008A01BC /* HostListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostListViewModel.swift; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1EB10FA2CE4176E008A01BC /* PingFramework.xcframework in Frameworks */,
+				A105403F2CE68145009343FC /* PingFramework.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +85,7 @@
 		A1B8F6E82CDEA3E60016F3D3 = {
 			isa = PBXGroup;
 			children = (
-				A1EB10F92CE4176E008A01BC /* PingFramework.xcframework */,
+				A105403E2CE68145009343FC /* PingFramework.xcframework */,
 				A1B8F6F32CDEA3E60016F3D3 /* NetworkLatencyAnalyzer */,
 				A1B8F7042CDEA3E80016F3D3 /* NetworkLatencyAnalyzerTests */,
 				A1B8F70E2CDEA3E80016F3D3 /* NetworkLatencyAnalyzerUITests */,
@@ -444,7 +444,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkLatencyAnalyzer/Preview Content\"";
 				DEVELOPMENT_TEAM = R3739K2Z26;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../build/**";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -474,7 +474,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NetworkLatencyAnalyzer/Preview Content\"";
 				DEVELOPMENT_TEAM = R3739K2Z26;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../build/**";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

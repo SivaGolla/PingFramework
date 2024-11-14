@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class PingService: ServiceProviding {
     
@@ -52,5 +53,31 @@ class PingService: ServiceProviding {
                 completion(result)
             }
         }
+    }
+    
+    /// Executes a network request and returns the result.
+    /// - Note: This method is generic and can handle any Decodable type.
+    ///
+    @MainActor
+    func fetch<T>() async throws -> T where T : Decodable {
+        
+        // Construct the request using makeRequest().
+        let request = makeRequest()
+        
+        // Execute the request using NetworkManager.
+        return try await NetworkManager(session: UserSession.activeSession).execute(request: request)
+    }
+    
+    /// Fetches a resource from the network using a constructed request and returns a publisher that emits a decoded result.
+    ///
+    /// This method constructs the network request using the `makeRequest()` method and uses the `NetworkManager`
+    /// to execute it. The response is expected to be of type `T` which conforms to the `Decodable` protocol.
+    ///
+    /// - Returns: An `AnyPublisher` that emits a decoded object of type `T` if the request is successful, or a `NetworkError` if it fails.
+    /// - Note: The decoding will occur based on the type `T` that conforms to the `Decodable` protocol.
+    func fetch<T>() -> AnyPublisher<T, NetworkError> where T : Decodable  {
+        // Construct the request using makeRequest().
+        let request = makeRequest()
+        return NetworkManager(session: UserSession.activeSession).execute(request: request)
     }
 }
