@@ -15,13 +15,13 @@ import UIKit
 public class PingManager: NSObject {
     
     /// The service responsible for making network requests to fetch hosts.
-    let pingService = PingService()
+    var pingService = PingService()
     
     /// The analyzer used to measure the latency for each host.
-    let latencyAnalyzer = LatencyAnalyzer()
+    var latencyAnalyzer = LatencyAnalyzer()
     
     /// The loader used to fetch images associated with the hosts.
-    let imageLoader = ImageLoader()
+    var imageLoader = ImageLoader()
     
     /// Initializes a new instance of `PingManager`.
     ///
@@ -48,7 +48,7 @@ public class PingManager: NSObject {
         pingService.reqUrlPath = urlString
         
         // Fetch the list of hosts using the PingService.
-        pingService.fetch() { (result: Result<Hosts, NetworkError>) in
+        pingService.fetch { (result: Result<Hosts, NetworkError>) in
             switch result {
             case .success(let hosts):
                 var results: [PingResult] = []

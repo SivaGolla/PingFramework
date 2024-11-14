@@ -15,7 +15,8 @@ class LatencyAnalyzer {
     
     /// The `DispatchGroup` used to synchronize the multiple network requests (pings) for latency measurement.
     let dispatchGroup = DispatchGroup()
-
+    var urlSession = UserSession.activeSession
+    
     /**
      Executes latency measurement by sending multiple requests to the specified host.
      
@@ -40,6 +41,8 @@ class LatencyAnalyzer {
             return
         }
         
+        let urlRequest = URLRequest(url: hostUrl)
+        
         // Loop to send multiple pings based on the `pingCount` constant.
         for _ in 0..<Constants.pingCount {
             
@@ -48,7 +51,7 @@ class LatencyAnalyzer {
             let startTime = Date()  // Record the start time for latency calculation
             
             // Perform an HTTP request to measure the round-trip time.
-            URLSession.shared.dataTask(with: hostUrl) { [weak self] _, response, error in
+            urlSession.dataTask(with: urlRequest) { [weak self] _, response, error in
                 
                 defer {
                     self?.dispatchGroup.leave()  // Ensure leaving the DispatchGroup once the task is complete

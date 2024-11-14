@@ -17,6 +17,12 @@ public class HostEntry: NSObject, Codable {
         case url
         case imageUrl = "icon"
     }
+    
+    init(name: String, url: String, imageUrl: String) {
+        self.name = name
+        self.url = url
+        self.imageUrl = imageUrl
+    }
 }
 
 typealias Hosts = [HostEntry]

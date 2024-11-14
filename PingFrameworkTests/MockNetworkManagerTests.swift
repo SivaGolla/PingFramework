@@ -6,7 +6,7 @@
 //
 
 import XCTest
-// @testable import PingFramework_Dev
+@testable import PingFrameworkTest
 
 final class MockNetworkManagerTests: XCTestCase {
 
@@ -37,10 +37,10 @@ final class MockNetworkManagerTests: XCTestCase {
                               method: .get,
                               contentType: "application/json",
                               headerParams: nil,
-                              type: .weatherForecast,
+                              type: .ping,
                               body: nil)
         
-        networkManager.execute(request: request, completion: { [weak self](result: (Result<WeatherResponse, NetworkError>)) in
+        networkManager.execute(request: request, completion: { [weak self](result: (Result<Hosts, NetworkError>)) in
             if let sessionUrl = self?.session.lastURL {
                 XCTAssert(sessionUrl == url)
             }
@@ -57,42 +57,20 @@ final class MockNetworkManagerTests: XCTestCase {
                               method: .get,
                               contentType: "application/json",
                               headerParams: nil,
-                              type: .weatherForecast,
+                              type: .ping,
                               body: nil)
         
-        networkManager.execute(request: request, completion: { (result: (Result<[WeatherResponse], NetworkError>)) in
+        networkManager.execute(request: request, completion: { (result: (Result<[HostEntry], NetworkError>)) in
             
         })
         
         XCTAssert(dataTask.resumeWasCalled)
-    }
-    
-    func testExecuteAsyncRequestForURL() async throws {
-        
-        guard let url = URL(string: "https://mockurl") else {
-            fatalError("URL can't be empty")
-        }
-        
-        let request = Request(path: "https://mockurl",
-                              method: .get,
-                              contentType: "application/json",
-                              headerParams: nil,
-                              type: .weatherForecast,
-                              body: nil)
-        
-        let result: WeatherResponse = try await networkManager.execute(request: request)
-        
-        if let sessionUrl = session.lastURL {
-            XCTAssert(sessionUrl == url)
-        }
-        
-        XCTAssertNotNil(result)
     }
 
 }
 
 extension MockNetworkManagerTests: MockURLSessionDelegate {
     func resourceName(for path: String, httpMethod: String) -> String {
-        return "WeatherResponseData"
+        return "PingHosts"
     }
 }

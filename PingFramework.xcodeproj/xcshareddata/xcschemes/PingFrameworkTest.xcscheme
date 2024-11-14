@@ -4,7 +4,7 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "NO"
+      buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
@@ -15,23 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1388C702CE530CD00CC36C4"
-               BuildableName = "PingFramework-Dev.framework"
-               BlueprintName = "PingFramework-Dev"
-               ReferencedContainer = "container:PingFramework.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1B8F67D2CDE894E0016F3D3"
-               BuildableName = "PingFrameworkTests.xctest"
-               BlueprintName = "PingFrameworkTests"
+               BlueprintIdentifier = "A10540222CE66A2E009343FC"
+               BuildableName = "PingFrameworkTest.framework"
+               BlueprintName = "PingFrameworkTest"
                ReferencedContainer = "container:PingFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +30,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:PingFrameworkTests/PingFramework-Dev.xctestplan"
+            reference = "container:PingFrameworkTests/PingFrameworkTest.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -69,9 +55,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A1388C702CE530CD00CC36C4"
-            BuildableName = "PingFramework-Dev.framework"
-            BlueprintName = "PingFramework-Dev"
+            BlueprintIdentifier = "A10540222CE66A2E009343FC"
+            BuildableName = "PingFrameworkTest.framework"
+            BlueprintName = "PingFrameworkTest"
             ReferencedContainer = "container:PingFramework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import PingFrameworkTest
 
 final class PingManagerTests: XCTestCase {
 
@@ -38,7 +39,7 @@ final class PingManagerTests: XCTestCase {
     // Test when fetch is successful and latencies and images are valid.
     func testStartPinging_Success() {
         // Arrange
-        let mockHost = Host(name: "Test Host", url: "http://example.com", imageUrl: "http://example.com/image.jpg")
+        let mockHost = HostEntry(name: "Test Host", url: "http://example.com", imageUrl: "http://example.com/image.jpg")
         mockPingService.mockHosts = [mockHost]
         mockImageLoader.mockImage = UIImage()
         
@@ -77,7 +78,7 @@ final class PingManagerTests: XCTestCase {
     // Test when latency measurement fails
     func testStartPinging_LatencyFailure() {
         // Arrange
-        let mockHost = Host(name: "Test Host", url: "http://example.com", imageUrl: "http://example.com/image.jpg")
+        let mockHost = HostEntry(name: "Test Host", url: "http://example.com", imageUrl: "http://example.com/image.jpg")
         mockPingService.mockHosts = [mockHost]
         mockLatencyAnalyzer.shouldReturnError = true
         
@@ -97,7 +98,7 @@ final class PingManagerTests: XCTestCase {
     // Test when image loading fails
     func testStartPinging_ImageLoadingFailure() {
         // Arrange
-        let mockHost = Host(name: "Test Host", url: "http://example.com", imageUrl: "http://example.com/image.jpg")
+        let mockHost = HostEntry(name: "Test Host", url: "http://example.com", imageUrl: "http://example.com/image.jpg")
         mockPingService.mockHosts = [mockHost]
         mockImageLoader.shouldReturnError = true
         
@@ -114,47 +115,4 @@ final class PingManagerTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
     }
 
-}
-
-
-// Mock PingService
-class MockPingService: PingService {
-    var shouldReturnError = false
-    var mockHosts: [Host] = []
-    
-    override func fetch(completion: @escaping (Result<Hosts, NetworkError>) -> Void) {
-        if shouldReturnError {
-            completion(.failure(.invalidUrl))  // Simulate a failure
-        } else {
-            completion(.success(mockHosts))  // Return mock hosts
-        }
-    }
-}
-
-// Mock LatencyAnalyzer
-class MockLatencyAnalyzer: LatencyAnalyzer {
-    var mockLatency: Double = 0.1
-    var shouldReturnError = false
-    
-    override func execute(host: String, completion: @escaping (Result<Double, Error>) -> Void) {
-        if shouldReturnError {
-            completion(.failure(NetworkError.noData))  // Simulate error
-        } else {
-            completion(.success(mockLatency))  // Return mock latency
-        }
-    }
-}
-
-// Mock ImageLoader
-class MockImageLoader: ImageLoader {
-    var mockImage: UIImage?
-    var shouldReturnError = false
-    
-    override func loadImage(from url: String, completion: @escaping (UIImage?) -> Void) {
-        if shouldReturnError {
-            completion(nil)  // Simulate image loading failure
-        } else {
-            completion(mockImage)  // Return mock image
-        }
-    }
 }

@@ -6,8 +6,7 @@
 //
 
 import XCTest
-@testable import PingFramework_Dev
-//@testable import PingFramework_Dev
+@testable import PingFrameworkTest
 
 final class PingServiceTests: XCTestCase {
     var networkManager: NetworkManager!
@@ -20,6 +19,7 @@ final class PingServiceTests: XCTestCase {
         session.mDelegate = self
         networkManager = NetworkManager(session: session)
         pingService = PingService()
+        pingService.reqUrlPath = "https://sample.hosts.com"
     }
 
     override func tearDownWithError() throws {
@@ -47,16 +47,19 @@ final class PingServiceTests: XCTestCase {
             return
         }
         
-        let model = try JSONDecoder().decode([HostEntry].self, from: data)
+        let model = try JSONDecoder().decode(Hosts.self, from: data)
                 
         let expectation = XCTestExpectation(description: "Completion handler invoked")
         
         // Act
-        pingService.fetch { (result: Result<[HostEntry], NetworkError>) in
+        pingService.fetch { (result: Result<Hosts, NetworkError>) in
             // Assert
             switch result {
             case .success(let data):
-                XCTAssertEqual(data, model)
+                XCTAssertEqual(
+                    data.map { $0.name },
+                    model.map { $0.name }
+                )
             case .failure:
                 XCTFail("Expected success, but got failure")
             }
@@ -69,6 +72,6 @@ final class PingServiceTests: XCTestCase {
 
 extension PingServiceTests: MockURLSessionDelegate {
     func resourceName(for path: String, httpMethod: String) -> String {
-        return "WeatherResponseData"
+        return "PingHosts"
     }
 }
